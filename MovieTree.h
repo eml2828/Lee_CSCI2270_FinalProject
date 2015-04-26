@@ -2,6 +2,7 @@
 #define MOVIETREE_H
 
 #include <json/json.h>
+#include <vector>
 
 struct MovieNode{
     int ranking;
@@ -49,6 +50,16 @@ class MovieTree
         //use this to return the json object from the class when you are ready to write it to a file
         json_object* getJsonObject();
         void printAllInfo();
+        void printByGenre();
+        void printByRating();
+        void printByDirector();
+        void vectorPrintGenre(std::string genre);
+        void vectorPrintRating(std::string rating);
+        void vectorPrintDirector(std::string director);
+        void randomMovie();
+        void randomMoviePrint();
+
+
 
     protected:
 
@@ -56,12 +67,22 @@ class MovieTree
         void DeleteAll(MovieNode * node); //use this for the post-order traversal deletion of the tree
         void printMovieInventory(MovieNode * node, json_object * traverseLog);
         void printAllInfo(MovieNode * node, json_object * traverseLog);
+        void printByGenre(MovieNode * node, json_object * traverseLog);
+        void printByRating(MovieNode * node, json_object * traverseLog);
+        void printByDirector(MovieNode * node, json_object * traverseLog);
+        void randomMovie(MovieNode * node, json_object * traverseLog);
         int countMovieNodes(MovieNode *node);
         MovieNode* searchMovieTree(MovieNode * node, std::string title, json_object * traverseLog);
         MovieNode *root;
         // Count of how many operations we have done.
         //including the json_object in the class makes it global within the class, much easier to work with
         json_object * Assignment6Output;
+        std::vector<MovieNode*> genrePrint;
+        std::vector<MovieNode*> ratingPrint;
+        std::vector<MovieNode*>DirectorPrint;
+        std::vector<MovieNode*>random;
+
+
 
 
 };
