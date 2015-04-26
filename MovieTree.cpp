@@ -2,6 +2,9 @@
 #include "MovieTree.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -416,4 +419,175 @@ void MovieTree::printAllInfo()
     return;
 }
 
+void MovieTree::printByGenre(){
+    json_object * newJSON = json_object_new_object();
+    json_object * travLog = json_object_new_array();
+
+    printByGenre(root,travLog);
+
+    // Update our json object
+    json_object *jsonOperation = json_object_new_string("traverse");
+    json_object_object_add(newJSON,"operation",jsonOperation);
+    json_object_object_add(newJSON,"output",travLog);
+    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+
+    opCount++;
+
+    return;
+}
+void MovieTree::printByGenre(MovieNode * node, json_object * traverseLog){
+    if(node->leftChild!=NULL){
+        printByGenre(node->leftChild,traverseLog);
+    }
+
+    genrePrint.push_back(node);
+
+    // Update the traversal log
+    json_object *curTitle = json_object_new_string(node->title.c_str());
+    json_object_array_add(traverseLog, curTitle);
+
+    // Right Node
+    if(node->rightChild!=NULL){
+        printByGenre(node->rightChild,traverseLog);
+    }
+    return;
+}
+void MovieTree::vectorPrintGenre(std::string in_genre){
+
+    for(int i = 0; i<genrePrint.size();i++){
+        if(genrePrint[i]->genre == in_genre){
+            cout<<genrePrint[i]->title<<endl;
+        }
+    }
+}
+void MovieTree::printByRating(){
+    json_object * newJSON = json_object_new_object();
+    json_object * travLog = json_object_new_array();
+
+    printByRating(root,travLog);
+
+    // Update our json object
+    json_object *jsonOperation = json_object_new_string("traverse");
+    json_object_object_add(newJSON,"operation",jsonOperation);
+    json_object_object_add(newJSON,"output",travLog);
+    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+
+    opCount++;
+
+    return;
+}
+
+void MovieTree::printByRating(MovieNode * node, json_object * traverseLog){
+
+    if(node->leftChild!=NULL){
+        printByRating(node->leftChild,traverseLog);
+    }
+
+    ratingPrint.push_back(node);
+
+    // Update the traversal log
+    json_object *curTitle = json_object_new_string(node->title.c_str());
+    json_object_array_add(traverseLog, curTitle);
+
+    // Right Node
+    if(node->rightChild!=NULL){
+        printByRating(node->rightChild,traverseLog);
+    }
+    return;
+}
+void MovieTree::vectorPrintRating(std::string in_rating){
+
+    for(int i = 0; i<ratingPrint.size();i++){
+        if(ratingPrint[i]->rating == in_rating){
+            cout<<ratingPrint[i]->title<<endl;
+        }
+    }
+}
+void MovieTree::printByDirector(){
+    json_object * newJSON = json_object_new_object();
+    json_object * travLog = json_object_new_array();
+
+    printByDirector(root,travLog);
+
+    // Update our json object
+    json_object *jsonOperation = json_object_new_string("traverse");
+    json_object_object_add(newJSON,"operation",jsonOperation);
+    json_object_object_add(newJSON,"output",travLog);
+    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+
+    opCount++;
+
+    return;
+}
+
+void MovieTree::printByDirector(MovieNode * node, json_object * traverseLog){
+
+    if(node->leftChild!=NULL){
+        printByDirector(node->leftChild,traverseLog);
+    }
+
+    DirectorPrint.push_back(node);
+
+    // Update the traversal log
+    json_object *curTitle = json_object_new_string(node->title.c_str());
+    json_object_array_add(traverseLog, curTitle);
+
+    // Right Node
+    if(node->rightChild!=NULL){
+        printByDirector(node->rightChild,traverseLog);
+    }
+    return;
+}
+void MovieTree::vectorPrintDirector(std::string in_Director){
+
+    for(int i = 0; i<DirectorPrint.size();i++){
+        if(DirectorPrint[i]->director == in_Director){
+            cout<<DirectorPrint[i]->title<<endl;
+        }
+    }
+}
+void MovieTree::randomMovie(){
+    json_object * newJSON = json_object_new_object();
+    json_object * travLog = json_object_new_array();
+
+    randomMovie(root,travLog);
+
+    // Update our json object
+    json_object *jsonOperation = json_object_new_string("traverse");
+    json_object_object_add(newJSON,"operation",jsonOperation);
+    json_object_object_add(newJSON,"output",travLog);
+    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+
+    opCount++;
+
+    return;
+}
+void MovieTree::randomMovie(MovieNode * node, json_object * traverseLog){
+
+    if(node->leftChild!=NULL){
+        randomMovie(node->leftChild,traverseLog);
+    }
+
+    random.push_back(node);
+
+    // Update the traversal log
+    json_object *curTitle = json_object_new_string(node->title.c_str());
+    json_object_array_add(traverseLog, curTitle);
+
+    // Right Node
+    if(node->rightChild!=NULL){
+        randomMovie(node->rightChild,traverseLog);
+    }
+    return;
+}
+void MovieTree::randomMoviePrint(){
+    int i = rand() % random.size();
+    cout<<"Title: "<<random[i]->title<<endl;
+    cout<<"Year: "<<random[i]->year<<endl;
+    cout<<"Director: "<<random[i]->director<<endl;
+    cout<<"Genre: "<<random[i]->genre<<endl;
+    cout<<"Rating: "<<random[i]->rating<<endl;
+
+
+}
 
