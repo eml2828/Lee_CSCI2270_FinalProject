@@ -46,6 +46,8 @@ int main()
     // Used for input
     string title;
     string genre;
+    string rating;
+    string director;
     while(quit != true)
     {
         displayMenu();
@@ -78,7 +80,7 @@ int main()
 
             // Delete Node
             case 3:
-                cout << "Enter title:" << endl;
+                cout << "Enter title: " << endl;
                 getline(cin,title);
                 mt->deleteMovieNode(title);
                 break;
@@ -89,14 +91,29 @@ int main()
             case 5:
                 mt->printAllInfo();
                 break;
-
             case 6:
-                cout << "Enter genre:" << endl;
+                cout << "Enter genre: " << endl;
                 getline(cin,genre);
                 mt->printByGenre();
                 mt->vectorPrintGenre(genre);
                 break;
             case 7:
+                cout<<"Enter Rating: "<<endl;
+                getline(cin,rating);
+                mt->printByRating();
+                mt->vectorPrintRating(rating);
+                break;
+            case 8:
+                cout<<"Enter Director: "<<endl;
+                getline(cin,director);
+                mt->printByDirector();
+                mt->vectorPrintDirector(director);
+                break;
+            case 9:
+                mt->randomMovie();
+                mt->randomMoviePrint();
+                break;
+            case 10:
                 cout << "Goodbye!" << endl;
                 quit = true;
                 break;
@@ -133,7 +150,10 @@ void displayMenu()
     cout << "4. Count the movies" << endl;
     cout << "5. Print All Info" << endl;
     cout << "6. Print by Genre" << endl;
-    cout << "7. Quit" << endl;
+    cout << "7. Print by Rating" << endl;
+    cout << "8. Print by Director" << endl;
+    cout << "9. Random Movie" << endl;
+    cout << "10. Quit" << endl;
     return;
 }
 
