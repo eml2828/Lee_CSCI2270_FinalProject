@@ -45,7 +45,7 @@ int main()
 
     // Used for input
     string title;
-
+    string genre;
     while(quit != true)
     {
         displayMenu();
@@ -89,8 +89,14 @@ int main()
             case 5:
                 mt->printAllInfo();
                 break;
-            // Quit
+
             case 6:
+                cout << "Enter genre:" << endl;
+                getline(cin,genre);
+                mt->printByGenre();
+                mt->vectorPrintGenre(genre);
+                break;
+            case 7:
                 cout << "Goodbye!" << endl;
                 quit = true;
                 break;
@@ -126,7 +132,8 @@ void displayMenu()
     cout << "3. Delete a movie" << endl;
     cout << "4. Count the movies" << endl;
     cout << "5. Print All Info" << endl;
-    cout << "6. Quit" << endl;
+    cout << "6. Print by Genre" << endl;
+    cout << "7. Quit" << endl;
     return;
 }
 
