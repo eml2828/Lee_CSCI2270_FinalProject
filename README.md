@@ -12,7 +12,7 @@ Each line of the text file must be formatted as above. Then after compiling, all
 The JSON library. Use the command in the terminal
 sudo apt-get install libjson0 libjson0-dev
 Then make sure to include the json library using 
-#include <json/json.h>
+"include <json/json.h>"
 Finally, make sure that the linker setting have json added to them.
 Also make sure that the compiler is using the C++11 flags under build options in codeblocks or whatever the equivalent is in the coding environment you are using.
 
