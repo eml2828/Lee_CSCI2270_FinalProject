@@ -8,13 +8,14 @@
 
 using namespace std;
 
+//constructor
 MovieTree::MovieTree()
 {
     root = NULL;
     opCount = 1;
     Assignment6Output = json_object_new_object();
 }
-
+//dstor
 MovieTree::~MovieTree()
 {
     DeleteAll(root);
@@ -22,6 +23,16 @@ MovieTree::~MovieTree()
     // Clean up json object
     json_object_put(Assignment6Output);
 }
+/*Function Prototype: void MovieTree::DeleteAll(MovieNode * node);
+  Function Description: Deletes all nodes in tree
+  Example:
+  MovieTree *mt;
+  mt->DeleteAll(root);
+  Precondition: Tree is built and this function us only used upon exiting the program
+
+
+*/
+
 
 /* Used to delete all nodes in the tree */
 void MovieTree::DeleteAll(MovieNode * node)
@@ -43,7 +54,13 @@ void MovieTree::initJson()
     Assignment6Output = json_object_new_object();
 }
 
-/* Helper for the printMovieInventory recursive function */
+
+/*Function Prototype: void MovieTree::printMovieInventory();
+  Function Description: Helper for the printMovieInventory recursive function, calls other print function, and handles additions to json object
+  Example:
+  MovieTree *mt;
+  mt->printMovieInventory();
+  Precondition: Tree is built*/
 void MovieTree::printMovieInventory()
 {
     // Create the json object for this operation
@@ -63,7 +80,12 @@ void MovieTree::printMovieInventory()
     return;
 }
 
-/* Prints the inventory(in order traversal) */
+
+/*Function Prototype: void MovieTree::printMovieInventory(MovieNode * node, json_object * traverseLog);
+  Function Description:  Prints the inventory(in order traversal)
+  Example: printMovieInventory(root,travLog);
+  Precondition: Tree is built and is called from the helper function void MovieTree::printMovieInventory();
+  */
 void MovieTree::printMovieInventory(MovieNode * node, json_object * traverseLog)
 {
 
@@ -86,7 +108,13 @@ void MovieTree::printMovieInventory(MovieNode * node, json_object * traverseLog)
 }
 
 
-
+/*Function Prototype: void MovieTree::addMovieNode(int ranking, std::string title, int releaseYear, int quantity,std::string director,std::string genre, std::string rating);
+  Function Description:  adds new nodes to the BST using the BST rules. Also adds to the json object
+  Example:
+  MovieTree *mt;
+  mt->addMovieNode(atoi(ranking.c_str()),title,atoi(releaseYear.c_str()),atoi(quantity.c_str()),director,genre,rating);
+  Precondition: Valid text file and correct types during function call. the atoi is so the string becomes an int.
+  */
 void MovieTree::addMovieNode(int ranking, std::string title, int releaseYear, int quantity,std::string director,std::string genre, std::string rating)
 {
     //cout << "entered!\n";
@@ -146,7 +174,14 @@ void MovieTree::addMovieNode(int ranking, std::string title, int releaseYear, in
 
 }
 
-/* used to find movie information, provides info or says movie can't be found */
+
+/*Function Prototype: void MovieTree::findMovie(std::string title);
+  Function Description: searches for movie based on title else returns error message
+  Example:
+  MovieTree *mt;
+  mt->findMovie("Shawshank Redemption")
+  Precondition: Tree must be built
+  */
 void MovieTree::findMovie(std::string title)
 {
     // Create a traversal log
@@ -167,7 +202,13 @@ void MovieTree::findMovie(std::string title)
 
     return;
 }
-
+/*Function Prototype: MovieNode* MovieTree::searchMovieTree(MovieNode * node, std::string title, json_object * traverseLog);
+  Function Description: searches tree for the rent movie function
+  Example:
+  MovieTree *mt;
+  mt->searchMovieTree(root, title, travLog)
+  Precondition: Tree must be built
+  */
 MovieNode* MovieTree::searchMovieTree(MovieNode * node, std::string title, json_object * traverseLog)
 {
     // Add the current node to the traverse log
@@ -194,7 +235,14 @@ MovieNode* MovieTree::searchMovieTree(MovieNode * node, std::string title, json_
             return searchMovieTree(node->rightChild,title,traverseLog);
     }
 }
-
+/*Function Prototype: void MovieTree::rentMovie(std::string title);
+  Function Description: rents a movie by searching for the movie and checking the quantity. If the quantity is greater than 0 then it decreases by 1, else it returns an error statement.
+  It also adds to the json object.
+  Example:
+  MovieTree *mt;
+  mt->rentMovie(title)
+  Precondition: Tree must be built
+  */
 void MovieTree::rentMovie(std::string title)
 {
     // Create the json object for this operation
@@ -248,7 +296,14 @@ void MovieTree::rentMovie(std::string title)
         cout << "Movie not found." << endl;
 
 }
-
+/*Function Prototype: void MovieTree::deleteMovieNode(std::string title);
+  Function Description: delete a movie from the tree. Checks the cases of no children, on child, and two children and adjusts accordingly so that all the correct and necessary pointers are overwritten.
+  It also adds to the json object.
+  Example:
+  MovieTree *mt;
+  mt->deleteMovieNode(title);
+  Precondition: Tree must be built
+  */
 void MovieTree::deleteMovieNode(std::string title)
 {
 
@@ -313,6 +368,9 @@ void MovieTree::deleteMovieNode(std::string title)
             foundMovie->quantity = replacementNode->quantity;
             foundMovie->ranking = replacementNode->ranking;
             foundMovie->year = replacementNode->year;
+            foundMovie->director = replacementNode->director;
+            foundMovie->genre = replacementNode->genre;
+            foundMovie->rating = replacementNode->rating;
 
 
             // If the replacement node has a right child, update the parent
@@ -348,6 +406,14 @@ void MovieTree::deleteMovieNode(std::string title)
 
 }
 
+/*Function Prototype: vint MovieTree::countMovieNodes();;
+  Function Description: helper function to the function that counts the number of movie nodes in the tree.
+  It also adds to the json object.
+  Example:
+  MovieTree *mt;
+  mt->countMovieNodes();
+  Precondition: Tree must be built
+  */
 int MovieTree::countMovieNodes()
 {
     // Create the json object for this operation
@@ -367,6 +433,14 @@ int MovieTree::countMovieNodes()
     return count;
 }
 
+/*Function Prototype: int MovieTree::countMovieNodes(MovieNode *node);;
+  Function Description: function that counts the number of movie nodes in the tree.
+  It also adds to the json object.
+  Example:
+  MovieTree *mt;
+  mt->countMovieNodes(root);
+  Precondition: Tree must be built
+  */
 int MovieTree::countMovieNodes(MovieNode *node)
 {
     if (node == NULL)
@@ -374,10 +448,19 @@ int MovieTree::countMovieNodes(MovieNode *node)
     return countMovieNodes(node->leftChild) + countMovieNodes(node->rightChild) + 1;
 }
 
+//gets json onject for printing
 json_object* MovieTree::getJsonObject()
 {
     return Assignment6Output;
 }
+/*Function Prototype: ivoid MovieTree::printAllInfo(MovieNode * node, json_object * traverseLog);
+  Function Description: function prints all info about each movie in the tree
+  It also adds to the json object.
+  Example:
+  MovieTree *mt;
+  mt->printAllInfo(root, travlog)
+  Precondition: Tree must be built
+  */
 void MovieTree::printAllInfo(MovieNode * node, json_object * traverseLog){
      if(node->leftChild!=NULL)
         printAllInfo(node->leftChild,traverseLog);
@@ -389,7 +472,6 @@ void MovieTree::printAllInfo(MovieNode * node, json_object * traverseLog){
     cout<<"Genre: "<<node->genre<<endl;
     cout<<"Rating: "<<node->rating<<endl;
     cout<<"Quantity: "<<node->quantity<<endl;
-    cout<<"/n"<<endl;
     // Update the traversal log
     json_object *curTitle = json_object_new_string(node->title.c_str());
     json_object_array_add(traverseLog, curTitle);
@@ -400,6 +482,14 @@ void MovieTree::printAllInfo(MovieNode * node, json_object * traverseLog){
 
     return;
 }
+/*Function Prototype: ivoid MovieTree::printAllInfo();
+  Function Description: helper function that prints all info about each movie in the tree
+  It also adds to the json object.
+  Example:
+  MovieTree *mt;
+  mt->printAllInfo()
+  Precondition: Tree must be built
+  */
 void MovieTree::printAllInfo()
 {
     // Create the json object for this operation
@@ -409,7 +499,7 @@ void MovieTree::printAllInfo()
     printAllInfo(root,travLog);
 
     // Update our json object
-    json_object *jsonOperation = json_object_new_string("traverse");
+    json_object *jsonOperation = json_object_new_string("traverse all info");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
     json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
@@ -418,7 +508,14 @@ void MovieTree::printAllInfo()
 
     return;
 }
-
+/*Function Prototype: void MovieTree::printByGenre();
+  Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
+  vector.
+  Example: .
+  MovieTree *mt;
+  mt->printByGenre()
+  Precondition: Tree must be built
+  */
 void MovieTree::printByGenre(){
     json_object * newJSON = json_object_new_object();
     json_object * travLog = json_object_new_array();
@@ -426,7 +523,7 @@ void MovieTree::printByGenre(){
     printByGenre(root,travLog);
 
     // Update our json object
-    json_object *jsonOperation = json_object_new_string("traverse");
+    json_object *jsonOperation = json_object_new_string("traverse genre");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
     json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
@@ -435,6 +532,13 @@ void MovieTree::printByGenre(){
 
     return;
 }
+/*Function Prototype: void MovieTree::printByGenre()(MovieNode * node, json_object * traverseLog);
+  Function Description: function that adds to a vector for printing
+  It also adds to the json object.
+  Example:
+  printByGenre(root, travlog);
+  Precondition: Tree must be built
+  */
 void MovieTree::printByGenre(MovieNode * node, json_object * traverseLog){
     if(node->leftChild!=NULL){
         printByGenre(node->leftChild,traverseLog);
@@ -452,6 +556,13 @@ void MovieTree::printByGenre(MovieNode * node, json_object * traverseLog){
     }
     return;
 }
+/*Function Prototype: void MovieTree::vectorPrintGenre(std::string in_genre);
+  Function Description: function that prints out movies of given genre
+  Example:
+  MovieTree *mt;
+  mt->vectorPrintGenre;
+  Precondition: Tree must be built
+  */
 void MovieTree::vectorPrintGenre(std::string in_genre){
 
     for(int i = 0; i<genrePrint.size();i++){
@@ -459,7 +570,16 @@ void MovieTree::vectorPrintGenre(std::string in_genre){
             cout<<genrePrint[i]->title<<endl;
         }
     }
+    genrePrint.clear();
 }
+/*Function Prototype: void MovieTree::printByRating();
+  Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
+  vector.
+  Example: .
+  MovieTree *mt;
+  mt->printByRating()
+  Precondition: Tree must be built
+  */
 void MovieTree::printByRating(){
     json_object * newJSON = json_object_new_object();
     json_object * travLog = json_object_new_array();
@@ -467,7 +587,7 @@ void MovieTree::printByRating(){
     printByRating(root,travLog);
 
     // Update our json object
-    json_object *jsonOperation = json_object_new_string("traverse");
+    json_object *jsonOperation = json_object_new_string("traverse rating");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
     json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
@@ -476,7 +596,13 @@ void MovieTree::printByRating(){
 
     return;
 }
-
+/*Function Prototype: void MovieTree::printByrating(MovieNode * node, json_object * traverseLog);
+  Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
+  vector.
+  Example: .
+  printByRating(root,travlog);
+  Precondition: Tree must be built
+  */
 void MovieTree::printByRating(MovieNode * node, json_object * traverseLog){
 
     if(node->leftChild!=NULL){
@@ -495,14 +621,33 @@ void MovieTree::printByRating(MovieNode * node, json_object * traverseLog){
     }
     return;
 }
+/*Function Prototype: void MovieTree::vectorPrintRating(std::string in_genre);
+  Function Description: function that prints out movies of given MPAA rating.
+  Example:
+  MovieTree *mt;
+  mt->vectorPrintRating(rating);
+  Precondition: Tree must be built
+  */
 void MovieTree::vectorPrintRating(std::string in_rating){
 
     for(int i = 0; i<ratingPrint.size();i++){
         if(ratingPrint[i]->rating == in_rating){
-            cout<<ratingPrint[i]->title<<endl;
-        }
+            cout<<"Title: "<<ratingPrint[i]->title<<endl;
+            cout<<"Year: "<<ratingPrint[i]->year<<endl;
+            cout<<"Director: "<<ratingPrint[i]->director<<endl;
+            cout<<"Genre: "<<ratingPrint[i]->genre<<endl;
+            cout<<"Rating: "<<ratingPrint[i]->rating<<endl;        }
     }
+    ratingPrint.clear();
 }
+/*Function Prototype: void MovieTree::printBydirector();
+  Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
+  vector.
+  Example: .
+  MovieTree *mt;
+  mt->printByDirector()
+  Precondition: Tree must be built
+  */
 void MovieTree::printByDirector(){
     json_object * newJSON = json_object_new_object();
     json_object * travLog = json_object_new_array();
@@ -510,7 +655,7 @@ void MovieTree::printByDirector(){
     printByDirector(root,travLog);
 
     // Update our json object
-    json_object *jsonOperation = json_object_new_string("traverse");
+    json_object *jsonOperation = json_object_new_string("traverse director");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
     json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
@@ -519,7 +664,13 @@ void MovieTree::printByDirector(){
 
     return;
 }
-
+/*Function Prototype: void MovieTree::printBydirector(MovieNode * node, json_object * traverseLog);
+  Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
+  vector.
+  Example: .
+  printByDirector(root,travlog)
+  Precondition: Tree must be built
+  */
 void MovieTree::printByDirector(MovieNode * node, json_object * traverseLog){
 
     if(node->leftChild!=NULL){
@@ -538,14 +689,34 @@ void MovieTree::printByDirector(MovieNode * node, json_object * traverseLog){
     }
     return;
 }
+/*Function Prototype: void MovieTree::vectorPrintDirector(std::string in_Director);
+  Function Description: function that prints out movies of given director
+  Example:
+  MovieTree *mt;
+  mt->vectorPrintDirector(director);
+  Precondition: Tree must be built
+  */
 void MovieTree::vectorPrintDirector(std::string in_Director){
 
     for(int i = 0; i<DirectorPrint.size();i++){
         if(DirectorPrint[i]->director == in_Director){
-            cout<<DirectorPrint[i]->title<<endl;
+            cout<<"Title: "<<DirectorPrint[i]->title<<endl;
+            cout<<"Year: "<<DirectorPrint[i]->year<<endl;
+            cout<<"Director: "<<DirectorPrint[i]->director<<endl;
+            cout<<"Genre: "<<DirectorPrint[i]->genre<<endl;
+            cout<<"Rating: "<<DirectorPrint[i]->rating<<endl;
+
         }
     }
 }
+/*Function Prototype: void MovieTree::randomMovie();
+  Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
+  vector.
+  Example: .
+  MovieTree *mt;
+  mt->randomMovie()
+  Precondition: Tree must be built
+  */
 void MovieTree::randomMovie(){
     json_object * newJSON = json_object_new_object();
     json_object * travLog = json_object_new_array();
@@ -562,6 +733,13 @@ void MovieTree::randomMovie(){
 
     return;
 }
+/*Function Prototype: MovieTree::randomMovie(MovieNode * node, json_object * traverseLog);
+  Function Description: function that adds to the json object and calls for the function that adds the movies to a
+  vector.
+  Example: .
+  randomMovie(root,travlog)
+  Precondition: Tree must be built
+  */
 void MovieTree::randomMovie(MovieNode * node, json_object * traverseLog){
 
     if(node->leftChild!=NULL){
@@ -580,6 +758,14 @@ void MovieTree::randomMovie(MovieNode * node, json_object * traverseLog){
     }
     return;
 }
+/*Function Prototype: MovieTree::randomMoviePrint();
+  Function Description: function that prints out the random movie by generating a random integer and % it by the vector size.
+  This will assure that the int will always be in the bounds of the vector.
+  Example:
+  MovieTree *mt
+  mt->randomMoviePrint()
+  Precondition: Tree must be built
+  */
 void MovieTree::randomMoviePrint(){
     int i = rand() % random.size();
     cout<<"Title: "<<random[i]->title<<endl;
@@ -587,7 +773,6 @@ void MovieTree::randomMoviePrint(){
     cout<<"Director: "<<random[i]->director<<endl;
     cout<<"Genre: "<<random[i]->genre<<endl;
     cout<<"Rating: "<<random[i]->rating<<endl;
-
-
+    random.clear();
 }
 
