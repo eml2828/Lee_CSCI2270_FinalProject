@@ -7,7 +7,7 @@
 All directions will be given assuming the user is using Codeblocks and a Debian based OS (i.e Debian,Ubuntu, and Mint). For ease of following these instructions please use the CSCI VM and Codeblocks.
 First create a project in Codeblocks and add the source files to the project. Make sure all dependencies listed below are resolved and then click the compile button. I have ommitted the command line arguments for sake of simplicity for both the user and I as we are working on it.Then use the provided Test.txt as the input. Information on each line should be formatted as follows:
 ranking,title,year,quantity,director,genre,rating
-Check that the text files follows the given format. Then after compiling, all you do is simply run the program and follow the menu and instructions. The program takes in no command line arguments.
+Check that the text files follows the given format. Then after compiling, all you do is simply run the program and follow the menu and instructions. The program takes in no command line arguments. If you are compiling outside of codeblocks use g++ -Wall -fexceptions -std=c++11 -g  -c
 
 #Dependencies
 The JSON library must first be installed. Use the command in the terminal
