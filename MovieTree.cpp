@@ -2,6 +2,9 @@
 #include "MovieTree.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
+#include <cstring>
+#include <sstream>
 #include <vector>
 #include <algorithm>
 
@@ -70,10 +73,14 @@ void MovieTree::printMovieInventory()
     printMovieInventory(root,travLog);
 
     // Update our json object
+    string stringNumber;
+    stringstream convert;
+    convert << opCount;
+    stringNumber = convert.str();
     json_object *jsonOperation = json_object_new_string("traverse");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
-    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+    json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
 
     opCount++;
 
@@ -162,12 +169,16 @@ void MovieTree::addMovieNode(int ranking, std::string title, int releaseYear, in
     }
 
     // Update our json object
+    string stringNumber;
+    stringstream convert;
+    convert << opCount;
+    stringNumber = convert.str();
     json_object *jsonOperation = json_object_new_string("add");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object *jsonTitle = json_object_new_string(title.c_str());
     json_object_object_add(newJSON,"parameter",jsonTitle);
     json_object_object_add(newJSON,"output",travLog);
-    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+    json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
     opCount++;
 
     return;
@@ -264,13 +275,20 @@ void MovieTree::rentMovie(std::string title)
             stockOutput = foundMovie->quantity;
 
             // Update our json object
+            string stringNumber;
+            string stockOutputString;
+            stringstream convert;
+            convert << opCount;
+            stringNumber = convert.str();
+            convert << stockOutputString;
+            stockOutputString = convert.str();
             json_object *jsonOperation = json_object_new_string("rent");
             json_object_object_add(newJSON,"operation",jsonOperation);
             json_object *jsonTitle = json_object_new_string(title.c_str());
             json_object_object_add(newJSON,"parameter",jsonTitle);
-            json_object *jsonOutput = json_object_new_string(to_string(stockOutput).c_str());
+            json_object *jsonOutput = json_object_new_string(stockOutputString.c_str());
             json_object_object_add(newJSON,"output",jsonOutput);
-            json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+            json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
 
             opCount++;
 
@@ -389,12 +407,16 @@ void MovieTree::deleteMovieNode(std::string title)
         }
 
         // Update our json object
+        string stringNumber;
+        stringstream convert;
+        convert << opCount;
+        stringNumber = convert.str();
         json_object *jsonOperation = json_object_new_string("delete");
         json_object_object_add(newJSON,"operation",jsonOperation);
         json_object *jsonTitle = json_object_new_string(title.c_str());
         json_object_object_add(newJSON,"parameter",jsonTitle);
         json_object_object_add(newJSON,"output",travLog);
-        json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+        json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
         opCount++;
 
     }
@@ -423,11 +445,18 @@ int MovieTree::countMovieNodes()
     int count = countMovieNodes(root);
 
     // Update our json object
+    string stringNumber;
+    string stringCount;
+    stringstream convert;
+    convert << opCount;
+    stringNumber = convert.str();
+    convert << stringCount;
+    stringCount = convert.str();
     json_object *jsonOperation = json_object_new_string("count");
     json_object_object_add(newJSON,"operation",jsonOperation);
-    json_object *jsonOutput = json_object_new_string(to_string(count).c_str());
+    json_object *jsonOutput = json_object_new_string(stringCount.c_str());
     json_object_object_add(newJSON,"output",jsonOutput);
-    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+    json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
     opCount++;
 
     return count;
@@ -499,10 +528,14 @@ void MovieTree::printAllInfo()
     printAllInfo(root,travLog);
 
     // Update our json object
+    string stringNumber;
+    stringstream convert;
+    convert << opCount;
+    stringNumber = convert.str();
     json_object *jsonOperation = json_object_new_string("traverse all info");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
-    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+    json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
 
     opCount++;
 
@@ -523,10 +556,14 @@ void MovieTree::printByGenre(){
     printByGenre(root,travLog);
 
     // Update our json object
+    string stringNumber;
+    stringstream convert;
+    convert << opCount;
+    stringNumber = convert.str();
     json_object *jsonOperation = json_object_new_string("traverse genre");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
-    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+    json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
 
     opCount++;
 
@@ -587,10 +624,14 @@ void MovieTree::printByRating(){
     printByRating(root,travLog);
 
     // Update our json object
+    string stringNumber;
+    stringstream convert;
+    convert << opCount;
+    stringNumber = convert.str();
     json_object *jsonOperation = json_object_new_string("traverse rating");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
-    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+    json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
 
     opCount++;
 
@@ -655,10 +696,14 @@ void MovieTree::printByDirector(){
     printByDirector(root,travLog);
 
     // Update our json object
+    string stringNumber;
+    stringstream convert;
+    convert << opCount;
+    stringNumber = convert.str();
     json_object *jsonOperation = json_object_new_string("traverse director");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
-    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+    json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
 
     opCount++;
 
@@ -724,10 +769,14 @@ void MovieTree::randomMovie(){
     randomMovie(root,travLog);
 
     // Update our json object
+    string stringNumber;
+    stringstream convert;
+    convert << opCount;
+    stringNumber = convert.str();
     json_object *jsonOperation = json_object_new_string("traverse");
     json_object_object_add(newJSON,"operation",jsonOperation);
     json_object_object_add(newJSON,"output",travLog);
-    json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
+    json_object_object_add(Assignment6Output,stringNumber.c_str(),newJSON);
 
     opCount++;
 
@@ -775,4 +824,3 @@ void MovieTree::randomMoviePrint(){
     cout<<"Rating: "<<random[i]->rating<<endl;
     random.clear();
 }
-

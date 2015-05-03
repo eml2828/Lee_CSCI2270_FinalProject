@@ -212,4 +212,3 @@ void readFileIntoTree(MovieTree * mt, char * fileName)
         }
     }
 }
-
