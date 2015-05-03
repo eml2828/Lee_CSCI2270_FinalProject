@@ -220,7 +220,9 @@ MovieNode* MovieTree::searchMovieTree(MovieNode * node, std::string title, json_
 
     // If the node is NULL, we just return. Failed to find node.
     if (node == NULL)
+    {
         return NULL;
+    }
     // Return this node if it is the one we are searching for
     else if (node->title == title)
         return node;
@@ -389,6 +391,7 @@ void MovieTree::deleteMovieNode(std::string title)
         }
 
         // Update our json object
+
         json_object *jsonOperation = json_object_new_string("delete");
         json_object_object_add(newJSON,"operation",jsonOperation);
         json_object *jsonTitle = json_object_new_string(title.c_str());
@@ -396,6 +399,7 @@ void MovieTree::deleteMovieNode(std::string title)
         json_object_object_add(newJSON,"output",travLog);
         json_object_object_add(Assignment6Output,to_string(opCount).c_str(),newJSON);
         opCount++;
+        std::cout<<"Movie deleted: "<<title<<std::endl;
 
     }
     // If it doesn't exist
@@ -565,12 +569,19 @@ void MovieTree::printByGenre(MovieNode * node, json_object * traverseLog){
   */
 void MovieTree::vectorPrintGenre(std::string in_genre){
 
+    bool genreEmpty=true;
     for(int i = 0; i<genrePrint.size();i++){
         if(genrePrint[i]->genre == in_genre){
             cout<<genrePrint[i]->title<<endl;
+            genreEmpty=false;
         }
     }
+    if(genreEmpty)
+    {
+        std::cout<<"No movies found in: "<<in_genre<<std::endl;
+    }
     genrePrint.clear();
+
 }
 /*Function Prototype: void MovieTree::printByRating();
   Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
@@ -697,7 +708,7 @@ void MovieTree::printByDirector(MovieNode * node, json_object * traverseLog){
   Precondition: Tree must be built
   */
 void MovieTree::vectorPrintDirector(std::string in_Director){
-
+    bool isEmpty=true;
     for(int i = 0; i<DirectorPrint.size();i++){
         if(DirectorPrint[i]->director == in_Director){
             cout<<"Title: "<<DirectorPrint[i]->title<<endl;
@@ -705,8 +716,13 @@ void MovieTree::vectorPrintDirector(std::string in_Director){
             cout<<"Director: "<<DirectorPrint[i]->director<<endl;
             cout<<"Genre: "<<DirectorPrint[i]->genre<<endl;
             cout<<"Rating: "<<DirectorPrint[i]->rating<<endl;
+            isEmpty=false;
 
         }
+    }
+    if(isEmpty)
+    {
+        std::cout<<"No movies found under director: "<<in_Director<<std::endl;
     }
 }
 /*Function Prototype: void MovieTree::randomMovie();
