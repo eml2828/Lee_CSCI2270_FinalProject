@@ -565,12 +565,15 @@ void MovieTree::printByGenre(MovieNode * node, json_object * traverseLog){
   */
 void MovieTree::vectorPrintGenre(std::string in_genre){
 
-    for(int i = 0; i<genrePrint.size();i++){
+    for(unsigned int i = 0; i<genrePrint.size();i++){
         if(genrePrint[i]->genre == in_genre){
             cout<<genrePrint[i]->title<<endl;
+            return;//if match is found function returns before print statement
         }
     }
+    cout<<"No movies in list with type "<<in_genre<<" genre"<<endl;//if no match is found function returns to menu after print statement
     genrePrint.clear();
+    return;
 }
 /*Function Prototype: void MovieTree::printByRating();
   Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
@@ -630,15 +633,21 @@ void MovieTree::printByRating(MovieNode * node, json_object * traverseLog){
   */
 void MovieTree::vectorPrintRating(std::string in_rating){
 
-    for(int i = 0; i<ratingPrint.size();i++){
-        if(ratingPrint[i]->rating == in_rating){
+    for(unsigned int i = 0; i<ratingPrint.size();i++)
+    {
+        if(ratingPrint[i]->rating == in_rating)
+        {
             cout<<"Title: "<<ratingPrint[i]->title<<endl;
             cout<<"Year: "<<ratingPrint[i]->year<<endl;
             cout<<"Director: "<<ratingPrint[i]->director<<endl;
             cout<<"Genre: "<<ratingPrint[i]->genre<<endl;
-            cout<<"Rating: "<<ratingPrint[i]->rating<<endl;        }
-    }
-    ratingPrint.clear();
+            cout<<"Rating: "<<ratingPrint[i]->rating<<endl; 
+            return;//function returns if match is found, before print statement
+		}
+   }
+   cout<<"No movies in list with rating "<<in_rating<<endl;//if no match is found function returns to menu after this print statement
+   ratingPrint.clear();
+   return;
 }
 /*Function Prototype: void MovieTree::printBydirector();
   Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
@@ -698,16 +707,19 @@ void MovieTree::printByDirector(MovieNode * node, json_object * traverseLog){
   */
 void MovieTree::vectorPrintDirector(std::string in_Director){
 
-    for(int i = 0; i<DirectorPrint.size();i++){
+    for(unsigned int i = 0; i<DirectorPrint.size();i++){
         if(DirectorPrint[i]->director == in_Director){
             cout<<"Title: "<<DirectorPrint[i]->title<<endl;
             cout<<"Year: "<<DirectorPrint[i]->year<<endl;
             cout<<"Director: "<<DirectorPrint[i]->director<<endl;
             cout<<"Genre: "<<DirectorPrint[i]->genre<<endl;
             cout<<"Rating: "<<DirectorPrint[i]->rating<<endl;
+            return;//if director found function returns
 
         }
     }
+	cout<<"Director not found"<<endl;//if director not found function returns after printing this
+	return;
 }
 /*Function Prototype: void MovieTree::randomMovie();
   Function Description: helper function that adds to the json object and calls for the function that adds the movies to a
