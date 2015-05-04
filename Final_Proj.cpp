@@ -1,5 +1,6 @@
 #include <iostream>
 #include "MovieTree.h"
+//#include "MovieTree.cpp"
 #include <fstream>  //allows istream/ostream
 #include <string>
 #include <json/json.h>
@@ -92,7 +93,7 @@ int main()
                 mt->printAllInfo();
                 break;
             case 6:
-                cout << "Enter genre: " << endl;
+                cout << "Enter genre: "<<endl;
                 getline(cin,genre);
                 mt->printByGenre();
                 mt->vectorPrintGenre(genre);
